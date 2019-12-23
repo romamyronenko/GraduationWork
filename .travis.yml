@@ -1,0 +1,10 @@
+language: python
+python:
+    - "3.8"
+# command to install dependencies
+install:
+    - pip install flask
+virtualenv:
+  system_site_packages: true
+# command to run tests
+script: pytest
