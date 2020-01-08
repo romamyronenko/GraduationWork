@@ -1,1 +1,1 @@
-from . import db
+import service.db
