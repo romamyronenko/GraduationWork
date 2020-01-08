@@ -36,24 +36,34 @@ api = Api(app)
 
 
 class Department(Resource):
+    """
+    Show a single department and lets you delete or edit a department.
+    """
     @wrapper
     def get(self, department_name):
+        """Return department data."""
         return db.get_department(department_name)
 
     @wrapper
     def delete(self, department_name):
+        """Remove department from list."""
         db.remove_department(department_name)
         return '', 204
 
     @wrapper
     def put(self, department_name):
+        """Add department to list."""
         db.edit_department(department_name, 'new_name')
         return '', 200
 
 
 class Departments(Resource):
+    """
+    Show a list of departments.
+    """
     @wrapper
     def get(self):
+        """Return list of departments."""
         departments = db.get_departments()
         return [{'Name': name} for (name,) in departments]
 
@@ -65,6 +75,7 @@ class Departments(Resource):
 class Employee(Resource):
     @wrapper
     def get(self, employee_id):
+        """Return employee data."""
         employee = db.get_employee(employee_id)
         return [{'id': employee[0],
                  'Name': employee[1],
@@ -74,18 +85,24 @@ class Employee(Resource):
 
     @wrapper
     def delete(self, employee_id):
+        """Remove employee from list."""
         db.delete_employee(employee_id)
         return '',  204
 
     @wrapper
     def put(self, employee_id):
+        """Add employee to list."""
         db.edit_employee(employee_id, 'New_name', '2-2-1997', '2300', 'Finance')
         return '', 200
 
 
 class Employees(Resource):
+    """
+    Show a list of employees.
+    """
     @wrapper
     def get(self):
+        """Return list of employee."""
         employees = db.get_employees()
         return [{'id': employee_id,
                  'Name': name,

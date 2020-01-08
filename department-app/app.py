@@ -1,3 +1,3 @@
 import rest.rest_app
 
-rest.rest_app.app.run()
+rest.rest_app.app.run(host='0.0.0.0', port=5000, debug=True)
