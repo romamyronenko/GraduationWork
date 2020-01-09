@@ -1,9 +1,10 @@
-from flask import Flask
-from flask_restful import Api, Resource
+from flask_restful import Resource, reqparse
 import service
 
 
 def wrapper(f):
+    """Method that create connection to database and close it after usage."""
+
     def connect_db(*args, **kwargs):
         sentinel = object()
 
@@ -24,21 +25,23 @@ def wrapper(f):
         else:
             g['db'] = old_value
         return res
+
     return connect_db
 
 
-app = Flask(__name__)
-api = Api(app)
-
-# parser = reqparse.RequestParser()
-# parser.add_argument('department_name')
-# parser.add_argument('name')
+parser = reqparse.RequestParser()
+parser.add_argument('department_name')
+parser.add_argument('employee_name')
+parser.add_argument('employee_birth')
+parser.add_argument('employee_salary')
+parser.add_argument('employee_department')
 
 
 class Department(Resource):
     """
     Show a single department and lets you delete or edit a department.
     """
+
     @wrapper
     def get(self, department_name):
         """Return department data."""
@@ -52,8 +55,9 @@ class Department(Resource):
 
     @wrapper
     def put(self, department_name):
-        """Add department to list."""
-        db.edit_department(department_name, 'new_name')
+        """Edit department data."""
+        args = parser.parse_args()
+        db.edit_department(department_name, args['department_name'])
         return '', 200
 
 
@@ -61,6 +65,7 @@ class Departments(Resource):
     """
     Show a list of departments.
     """
+
     @wrapper
     def get(self):
         """Return list of departments."""
@@ -69,7 +74,9 @@ class Departments(Resource):
 
     @wrapper
     def post(self):
-        pass
+        args = parser.parse_args()
+        db.create_department(department_name, args['department_name'])
+        return args['department_name'], 201
 
 
 class Employee(Resource):
@@ -87,12 +94,17 @@ class Employee(Resource):
     def delete(self, employee_id):
         """Remove employee from list."""
         db.delete_employee(employee_id)
-        return '',  204
+        return '', 204
 
     @wrapper
     def put(self, employee_id):
-        """Add employee to list."""
-        db.edit_employee(employee_id, 'New_name', '2-2-1997', '2300', 'Finance')
+        """Edit employee data."""
+        args = parser.parse_args()
+        db.edit_employee(employee_id,
+                         args['employee_name'],
+                         args['employee_birth'],
+                         args['employee_salary'],
+                         args['employee_department'])
         return '', 200
 
 
@@ -112,13 +124,9 @@ class Employees(Resource):
 
     @wrapper
     def post(self):
-        pass
-
-
-api.add_resource(Departments, '/departments')
-api.add_resource(Department, '/departments/<department_name>')
-api.add_resource(Employees, '/employees')
-api.add_resource(Employee, '/employees/<employee_id>')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+        args = parser.parse_args()
+        db.create_employee(args['employee_name'],
+                           args['employee_birth'],
+                           args['employee_salary'],
+                           args['employee_department'])
+        return args['employee_name'], 201
