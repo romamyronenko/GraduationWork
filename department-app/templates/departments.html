@@ -1,18 +1,18 @@
 <html>
     <head>
-        <link rel='stylesheet' href='../static/style.css'>
+        <link rel='stylesheet' href='{{host}}/static/style.css'>
         <title>Departments</title>
     </head>
     <body>
 		<div id='container'>
         	<div id='left'>
         	    <menu>
-        	        <li id='active'><a href='departments'>Departments</a></li>
-        	        <li><a href='employees'>Employees</a></li>
+        	        <li id='active'><a href='{{host}}/departments'>Departments</a></li>
+        	        <li><a href='{{host}}/employees'>Employees</a></li>
         	    </menu>
         	</div>
 			<div id='content'>
-        	    <a id='button' href='add/department'>Add new</a>
+        	    <a id='button' href='{{host}}/add/department'>Add new</a>
 				<br>
         	    <table>
         	       <tr>
@@ -23,10 +23,10 @@
         	        </tr>
 					{% for i in departments %}
         	        <tr>
-        	            <td><a href="/departments/{{i['Name']}}">{{i['Name']}}</a></td>
+        	            <td><a href="{{host}}/departments/{{i['Name']}}">{{i['Name']}}</a></td>
         	            <td>{{i['Avg salary']}}</td>
         	            <td>{{i['Count of employees']}}</td>
-        	            <td><a href='#'>edit</a> <a href='#'>remove</a></td>
+        	            <td><a href='{{host}}/departments/{{i["Name"]}}/edit'>edit</a> <a href='{{host}}/departments/{{i["Name"]}}/remove'>remove</a></td>
         	        </tr>
 					{% endfor %}
         	    </table>

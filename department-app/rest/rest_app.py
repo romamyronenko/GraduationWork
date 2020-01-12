@@ -63,6 +63,16 @@ class Department(Resource):
         return db.get_count_of_employees(department_name)
 
     @wrapper
+    def get_employees(self, department_name):
+        return [{
+            'id': i[0],
+            'Name': i[1],
+            'Department': i[2],
+            'Date': i[3],
+            'Salary': i[4],
+        }for i in db.get_employees_by_department(department_name)]
+
+    @wrapper
     def get_avg_salary(self, department_name):
         return db.get_avg_salary(department_name)
 

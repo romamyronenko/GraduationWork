@@ -1,7 +1,7 @@
 <html>
     <head>
         <link rel='stylesheet' href='{{host}}/static/style.css'>
-        <title>Delete employee</title>
+        <title>Delete department</title>
     </head>
     <body>
 		<div id='container'>
@@ -13,9 +13,9 @@
         	</div>
 			<div id='content'>
         	    <form method="post">
-        	    	<p>Please confirm delete employee {{employee_name}}</p>
+        	    	<p>Please confirm delete department {{department_name}}. All employees from that department will be deleted.</p>
         	    	<input type="submit" name="confirm">
-        	    	<input type="button" value="cancel" onClick='location.href="{{host}}/employees"'>
+        	    	<input type="button" value="cancel" onClick='location.href="{{host}}/departments"'>
         	    </form>
         	</div>
 		</div>

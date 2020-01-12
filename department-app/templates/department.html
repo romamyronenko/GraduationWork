@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <link rel='stylesheet' href=' /static/style.css'>
+        <title>Departments</title>
+    </head>
+    <body>
+		<div id='container'>
+        	<div id='left'>
+        	    <menu>
+        	        <li><a href=' /departments'>Departments</a></li>
+        	        <li><a href=' /employees'>Employees</a></li>
+        	    </menu>
+        	</div>
+			<div id='content'>
+        	    <h1>{{department}} <sup><a href="{{department}}/edit">edit</a></sup> <sup><a href='{{department}}/remove'>remove</a></sup></h1>
+				<br>
+        	    <table>
+        	       <tr>
+        	            <th>Name</th>
+        	            <th>Salary</th>
+        	            <th>Date of birth</th>
+        	            <th></th>
+        	        </tr>
+					{% for i in employees %}
+					<tr>
+        	            <td><a href=" /employees/{{i['id']}}">{{i['Name']}}</a></td>
+        	            <td>{{i['Salary']}}</td>
+        	            <td>{{i['Date']}}</td>
+						<td><a href="/employees/{{i['id']}}/edit">edit</a> <a href=" /employees/{{i['id']}}/remove">remove</a></td>
+        	        </tr>
+					{% endfor %}
+        	    </table>
+        	</div>
+		</div>
+    </body>
+</html>

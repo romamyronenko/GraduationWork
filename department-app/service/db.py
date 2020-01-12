@@ -28,6 +28,7 @@ class DataBase:
 
     def remove_department(self, name):
         """Remove department from table."""
+        self.cursor.execute('DELETE FROM employee WHERE Department=%s', (name,))
         self.cursor.execute('DELETE FROM department WHERE Name=%s', (name,))
 
     def edit_employee(self, id, new_name, new_birth, new_salary, new_department):
@@ -37,7 +38,11 @@ class DataBase:
 
     def edit_department(self, name, new_name):
         """Change department name."""
+        self.cursor.execute('INSERT INTO department VALUE ("TEMP")')
+        self.cursor.execute('UPDATE employee SET Department = "TEMP" WHERE Department = %s', (name,))
         self.cursor.execute('UPDATE department SET Name = %s WHERE Name = %s', (new_name, name))
+        self.cursor.execute('UPDATE employee SET Department = %s WHERE Department = "TEMP"', (new_name,))
+        self.cursor.execute('DELETE FROM department WHERE Name = "TEMP"')
 
     def get_employee(self, id):
         """Return employee data."""
@@ -67,12 +72,11 @@ class DataBase:
         self.cursor.execute('SELECT AVG(Salary) FROM employee WHERE Department=%s', (department_name,))
         return self.cursor.fetchone()[0]
 
+    def get_employees_by_department(self, department):
+        self.cursor.execute('SELECT * FROM employee WHERE Department = %s', (department,))
+        return self.cursor.fetchall()
+
     def close(self):
         """Save changes and close database."""
         self.db.commit()
         self.db.close()
-
-# db = mysql.connector.connect(user='debian-sys-maint',
-#                                     password='PggWbsvEVgDZUYar',
-#                                     host='127.0.0.1',
-#                                     database='roma')

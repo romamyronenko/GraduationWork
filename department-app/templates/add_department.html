@@ -1,21 +1,21 @@
 <html>
     <head>
-        <link rel='stylesheet' href='../../static/style.css'>
-        <title>Departments</title>
+        <link rel='stylesheet' href='{{host}}/static/style.css'>
+        <title>Add department</title>
     </head>
     <body>
 		<div id='container'>
         	<div id='left'>
         	    <menu>
-        	        <li><a href='../departments'>Departments</a></li>
-        	        <li><a href='../employees'>Employees</a></li>
+        	        <li><a href='{{host}}/departments'>Departments</a></li>
+        	        <li><a href='{{host}}/employees'>Employees</a></li>
         	    </menu>
         	</div>
 			<div id='content'>
         	    <form method="post">
-        	    	<p>Name: <input type="text" name="department_name"></p>
-        	    	<input type="submit" value="Add">
-					<input type="button" value="cancel" onClick='location.href="../../departments"'>
+        	    	<p>Name: <input type="text" name="department_name" value="{{name}}"></p>
+        	    	<input type="submit" value="Ok">
+					<input type="button" value="cancel" onClick='location.href="{{host}}/departments"'>
         	    </form>
         	</div>
 		</div>
