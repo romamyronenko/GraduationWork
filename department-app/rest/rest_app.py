@@ -4,7 +4,6 @@ import service
 
 def wrapper(f):
     """Method that create connection to database and close it after usage."""
-
     def connect_db(*args, **kwargs):
         sentinel = object()
 
@@ -41,7 +40,6 @@ class Department(Resource):
     """
     Show a single department and lets you delete or edit a department.
     """
-
     @wrapper
     def get(self, department_name):
         """Return department data."""
@@ -60,12 +58,19 @@ class Department(Resource):
         db.edit_department(department_name, args['department_name'])
         return '', 200
 
+    @wrapper
+    def get_count_of_employees(self, department_name):
+        return db.get_count_of_employees(department_name)
+
+    @wrapper
+    def get_avg_salary(self, department_name):
+        return db.get_avg_salary(department_name)
+
 
 class Departments(Resource):
     """
     Show a list of departments.
     """
-
     @wrapper
     def get(self):
         """Return list of departments."""
@@ -75,7 +80,7 @@ class Departments(Resource):
     @wrapper
     def post(self):
         args = parser.parse_args()
-        db.create_department(department_name, args['department_name'])
+        db.create_department(args['department_name'])
         return args['department_name'], 201
 
 

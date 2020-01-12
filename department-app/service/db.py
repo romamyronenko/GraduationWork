@@ -35,7 +35,7 @@ class DataBase:
 
     def edit_department(self, name, new_name):
         """Change department name."""
-        pass
+        self.cursor.execute('UPDATE department SET Name = %s WHERE Name = %s', (new_name, name))
 
     def get_employee(self, id):
         """Return employee data."""
@@ -56,6 +56,14 @@ class DataBase:
         """Return department data"""
         self.cursor.execute('SELECT * FROM department')
         return self.cursor.fetchall()
+
+    def get_count_of_employees(self, department_name):
+        self.cursor.execute('SELECT COUNT(*) FROM employee WHERE Department=%s', (department_name,))
+        return self.cursor.fetchone()[0]
+
+    def get_avg_salary(self, department_name):
+        self.cursor.execute('SELECT AVG(Salary) FROM employee WHERE Department=%s', (department_name,))
+        return self.cursor.fetchone()[0]
 
     def close(self):
         """Save changes and close database."""
