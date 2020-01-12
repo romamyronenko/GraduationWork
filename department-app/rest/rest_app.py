@@ -79,6 +79,7 @@ class Departments(Resource):
 
     @wrapper
     def post(self):
+        """Add new department."""
         args = parser.parse_args()
         db.create_department(args['department_name'])
         return args['department_name'], 201
@@ -98,7 +99,7 @@ class Employee(Resource):
     @wrapper
     def delete(self, employee_id):
         """Remove employee from list."""
-        db.delete_employee(employee_id)
+        db.remove_employee(employee_id)
         return '', 204
 
     @wrapper
@@ -129,9 +130,10 @@ class Employees(Resource):
 
     @wrapper
     def post(self):
+        """Add new employee."""
         args = parser.parse_args()
-        db.create_employee(args['employee_name'],
-                           args['employee_birth'],
-                           args['employee_salary'],
-                           args['employee_department'])
+        db.create_employee(name=args['employee_name'],
+                           department=args['employee_department'],
+                           salary=args['employee_salary'],
+                           birth=args['employee_birth'])
         return args['employee_name'], 201

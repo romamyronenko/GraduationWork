@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel='stylesheet' href='../static/style.css'>
+        <link rel='stylesheet' href='../../static/style.css'>
         <title>Departments</title>
     </head>
     <body>
@@ -13,16 +13,17 @@
         	</div>
 			<div id='content'>
         	    <form method="post">
-        	    	<p>Name: <input type="text" name="Name"></p>
-        	    	<p>Date of birthday: <input type="date" name="Birth"></p>
+        	    	<p>Name: <input type="text" name="employee_name" value="{{name}}"></p>
+        	    	<p>Date of birthday: <input type="date" name="employee_birth" value="{{birth}}"></p>
         	    	<p>Department: 
-        	    	<select name="Department">
+        	    	<select name="employee_department">
 						{% for i in departments %}
-        	    		<option>{{i}}</option>
+        	    		<option {% if i == department %}selected="selected"{% endif %}>{{i}}</option>
         	    		{% endfor %}
         	    	</select></p>
-        	    	<p>Salary: <input type="text" name="Salary"></p>
+        	    	<p>Salary: <input type="number" min="0" name="employee_salary" value="{{salary}}"></p>
         	    	<input type="submit" value="Add">
+					<input type="button" value="cancel" onClick='location.href="../../employees"'>
         	    	
         	    	
         	    </form>

@@ -3,6 +3,7 @@ import mysql.connector
 
 class DataBase:
     """Class to work with database."""
+
     def __init__(self, user, password, host, database):
         self.db = mysql.connector.connect(user=user,
                                           password=password,
@@ -14,7 +15,7 @@ class DataBase:
 
     def create_employee(self, name, department, salary, birth):
         """Insert new employee into table."""
-        self.cursor.execute('INSERT INTO employee(Name, Department, Birth, Salary) VALUE (%s, %s, %s, %i)',
+        self.cursor.execute('INSERT INTO employee(Name, Department, Birth, Salary) VALUE (%s, %s, %s, %s)',
                             (name, department, birth, salary))
 
     def create_department(self, name):
@@ -23,7 +24,7 @@ class DataBase:
 
     def remove_employee(self, id):
         """Remove employee from table."""
-        self.cursor.execute('DELETE FROM employee WHERE id=%i', (id,))
+        self.cursor.execute('DELETE FROM employee WHERE id=%s', (id,))
 
     def remove_department(self, name):
         """Remove department from table."""
@@ -31,7 +32,8 @@ class DataBase:
 
     def edit_employee(self, id, new_name, new_birth, new_salary, new_department):
         """Edit data of employee."""
-        pass
+        self.cursor.execute('UPDATE employee SET Name = %s, Birth = %s, Salary = %s, Department = %s WHERE id = %s',
+                            (new_name, new_birth, new_salary, new_department, id))
 
     def edit_department(self, name, new_name):
         """Change department name."""
@@ -69,7 +71,6 @@ class DataBase:
         """Save changes and close database."""
         self.db.commit()
         self.db.close()
-
 
 # db = mysql.connector.connect(user='debian-sys-maint',
 #                                     password='PggWbsvEVgDZUYar',

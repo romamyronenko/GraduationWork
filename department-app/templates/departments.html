@@ -12,7 +12,7 @@
         	    </menu>
         	</div>
 			<div id='content'>
-        	    <a id='button' href='add_department'>Add new</a>
+        	    <a id='button' href='add/department'>Add new</a>
 				<br>
         	    <table>
         	       <tr>
@@ -23,7 +23,7 @@
         	        </tr>
 					{% for i in departments %}
         	        <tr>
-        	            <td><a>{{i['Name']}}</a></td>
+        	            <td><a href="/departments/{{i['Name']}}">{{i['Name']}}</a></td>
         	            <td>{{i['Avg salary']}}</td>
         	            <td>{{i['Count of employees']}}</td>
         	            <td><a href='#'>edit</a> <a href='#'>remove</a></td>

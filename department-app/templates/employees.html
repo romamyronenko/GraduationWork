@@ -16,6 +16,7 @@
 				<br>
         	    <table>
         	       <tr>
+        	            <th>id</th>
         	            <th>Name</th>
         	            <th>Department</th>
         	            <th>Date of birth</th>
@@ -24,11 +25,12 @@
         	        </tr>
 					{% for i in departments %}
         	        <tr>
-        	            <td><a>{{i['Name']}}</a></td>
+        	            <td>{{i['id']}}</td>
+        	            <td><a href="/employees/{{i['id']}}">{{i['Name']}}</a></td>
         	            <td>{{i['Department']}}</td>
         	            <td>{{i['Birth']}}</td>
         	            <td>{{i['Salary']}}</td>
-        	            <td><a href='#'>edit</a> <a href='#'>remove</a></td>
+        	            <td><a href='employees/{{i["id"]}}/edit'>edit</a> <a href='employees/{{i["id"]}}/remove'>remove</a></td>
         	        </tr>
 					{% endfor %}
         	    </table>
