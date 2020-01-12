@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='../static/style.css'>
+        <title>Departments</title>
+    </head>
+    <body>
+		<div id='container'>
+        	<div id='left'>
+        	    <menu>
+        	        <li id='active'><a href='departments'>Departments</a></li>
+        	        <li><a href='employees'>Employees</a></li>
+        	    </menu>
+        	</div>
+			<div id='content'>
+        	    <a id='button' href='add_department'>Add new</a>
+				<br>
+        	    <table>
+        	       <tr>
+        	            <th>Name</th>
+        	            <th>Average salary</th>
+        	            <th>Count of employees</th>
+        	            <th></th>
+        	        </tr>
+					{% for i in departments %}
+        	        <tr>
+        	            <td><a>{{i['Name']}}</a></td>
+        	            <td>{{i['Avg salary']}}</td>
+        	            <td>{{i['Count of employees']}}</td>
+        	            <td><a href='#'>edit</a> <a href='#'>remove</a></td>
+        	        </tr>
+					{% endfor %}
+        	    </table>
+        	</div>
+		</div>
+    </body>
+</html>

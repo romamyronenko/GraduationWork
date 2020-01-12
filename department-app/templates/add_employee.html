@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='../static/style.css'>
+        <title>Departments</title>
+    </head>
+    <body>
+		<div id='container'>
+        	<div id='left'>
+        	    <menu>
+        	        <li><a href='../departments'>Departments</a></li>
+        	        <li><a href='../employees'>Employees</a></li>
+        	    </menu>
+        	</div>
+			<div id='content'>
+        	    <form method="post">
+        	    	<p>Name: <input type="text" name="Name"></p>
+        	    	<p>Date of birthday: <input type="date" name="Birth"></p>
+        	    	<p>Department: 
+        	    	<select name="Department">
+						{% for i in departments %}
+        	    		<option>{{i}}</option>
+        	    		{% endfor %}
+        	    	</select></p>
+        	    	<p>Salary: <input type="text" name="Salary"></p>
+        	    	<input type="submit" value="Add">
+        	    	
+        	    	
+        	    </form>
+        	</div>
+		</div>
+    </body>
+</html>
