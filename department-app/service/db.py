@@ -20,7 +20,11 @@ class DataBase:
 
     def create_department(self, name):
         """Insert new department into table."""
+        self.cursor.execute('SELECT * FROM department WHERE Name=%s', (name,))
+        if self.cursor.fetchone() is not None:
+            return False
         self.cursor.execute('INSERT INTO department VALUE (%s)', (name,))
+        return True
 
     def remove_employee(self, id):
         """Remove employee from table."""
@@ -65,18 +69,25 @@ class DataBase:
         return self.cursor.fetchall()
 
     def get_count_of_employees(self, department_name):
+        """Return count of employees in the department."""
         self.cursor.execute('SELECT COUNT(*) FROM employee WHERE Department=%s', (department_name,))
         return self.cursor.fetchone()[0]
 
     def get_avg_salary(self, department_name):
+        """Return average salary in the department."""
         self.cursor.execute('SELECT AVG(Salary) FROM employee WHERE Department=%s', (department_name,))
         return self.cursor.fetchone()[0]
 
     def get_employees_by_department(self, department):
+        """Return list of employees in department."""
         self.cursor.execute('SELECT * FROM employee WHERE Department = %s', (department,))
         return self.cursor.fetchall()
 
     def get_employees_by_date(self, date, date2):
+        """
+        Return employees that was born in date if date2=False.
+        Else return employees that was born between date and date2.
+        """
         if date2:
             self.cursor.execute('SELECT * FROM employee WHERE Birth >= %s && Birth <= %s', (date, date2))
         else:

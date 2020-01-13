@@ -1,18 +1,18 @@
 <html>
     <head>
-        <link rel='stylesheet' href=' /static/style.css'>
+        <link rel='stylesheet' href='{{host}}/static/style.css'>
         <title>Departments</title>
     </head>
     <body>
 		<div id='container'>
         	<div id='left'>
         	    <menu>
-        	        <li><a href=' /departments'>Departments</a></li>
-        	        <li><a href=' /employees'>Employees</a></li>
+        	        <li><a href='{{host}}/departments'>Departments</a></li>
+        	        <li><a href='{{host}}/employees'>Employees</a></li>
         	    </menu>
         	</div>
 			<div id='content'>
-        	    <h1>{{department}} <sup><a href="{{department}}/edit">edit</a></sup> <sup><a href='{{department}}/remove'>remove</a></sup></h1>
+        	    <h1>{{department}} <sup><a href="{{host}}/departments/{{department}}/edit">edit</a></sup> <sup><a href='{{host}}/departments/{{department}}/remove'>remove</a></sup></h1>
 				<br>
         	    <table>
         	       <tr>
@@ -23,10 +23,10 @@
         	        </tr>
 					{% for i in employees %}
 					<tr>
-        	            <td><a href=" /employees/{{i['id']}}">{{i['Name']}}</a></td>
+        	            <td><a href="{{host}}/employees/{{i['id']}}">{{i['Name']}}</a></td>
         	            <td>{{i['Salary']}}</td>
         	            <td>{{i['Date']}}</td>
-						<td><a href="/employees/{{i['id']}}/edit">edit</a> <a href=" /employees/{{i['id']}}/remove">remove</a></td>
+						<td><a href="{{host}}/employees/{{i['id']}}/edit">edit</a> <a href="{{host}}/employees/{{i['id']}}/remove">remove</a></td>
         	        </tr>
 					{% endfor %}
         	    </table>

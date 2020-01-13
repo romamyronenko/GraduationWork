@@ -8,7 +8,7 @@ logging.info('Start')
 
 
 def wrapper(f):
-    """Method that create connection to database and close it after usage."""
+    """Decorator that create connection to database and close it after usage."""
     def connect_db(*args, **kwargs):
         sentinel = object()
 
@@ -102,9 +102,13 @@ class Departments(Resource):
     def post(self):
         """Add new department."""
         args = parser.parse_args()
-        db.create_department(args['department_name'])
-        logging.info(f'POST /departments 201')
-        return args['department_name'], 201
+        if not args['department_name']:
+            return '', 204
+        if db.create_department(args['department_name']):
+            logging.info(f'POST /departments 201')
+            return args['department_name'], 201
+        logging.error('POST /departments 412')
+        return '', 412
 
 
 class Employee(Resource):
@@ -130,6 +134,14 @@ class Employee(Resource):
     def put(self, employee_id):
         """Edit employee data."""
         args = parser.parse_args()
+        if not args['employee_name']:
+            return 'Employee name is empty.', 400
+        elif not args['employee_department']:
+            return 'Employee department is empty.', 400
+        elif not args['employee_salary']:
+            return 'Employee salary is empty.', 400
+        elif not args['employee_birth']:
+            return 'Employee birth is empty.', 400
         db.edit_employee(employee_id,
                          args['employee_name'],
                          args['employee_birth'],
@@ -158,6 +170,16 @@ class Employees(Resource):
     def post(self):
         """Add new employee."""
         args = parser.parse_args()
+
+        if not args['employee_name']:
+            return 'Employee name is empty.', 400
+        elif not args['employee_department']:
+            return 'Employee department is empty.', 400
+        elif not args['employee_salary']:
+            return 'Employee salary is empty.', 400
+        elif not args['employee_birth']:
+            return 'Employee birth is empty.', 400
+
         db.create_employee(name=args['employee_name'],
                            department=args['employee_department'],
                            salary=args['employee_salary'],
@@ -169,7 +191,6 @@ class Employees(Resource):
     def get_by_date(self, date, date2):
         """Return list of employee that was born in the date(or between dates)."""
         employees = db.get_employees_by_date(date, date2)
-        print(employees)
         logging.info('GET /employees')
         return [{'id': employee_id,
                  'Name': name,

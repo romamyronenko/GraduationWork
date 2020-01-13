@@ -1,21 +1,21 @@
 <html>
     <head>
-        <link rel='stylesheet' href=' /static/style.css'>
+        <link rel='stylesheet' href='{{host}}/static/style.css'>
         <title>Departments</title>
     </head>
     <body>
 		<div id='container'>
         	<div id='left'>
         	    <menu>
-        	        <li><a href=' /departments'>Departments</a></li>
-        	        <li><a href=' /employees'>Employees</a></li>
+        	        <li><a href='{{host}}/departments'>Departments</a></li>
+        	        <li><a href='{{host}}/employees'>Employees</a></li>
         	    </menu>
         	</div>
 			<div id='content'>
         	    <h1>{{name}} <sup><a href='{{id}}/edit'>edit</a></sup> <sup><a href='{{id}}/remove'>remove</a></sup></h1>
         	    <p>id: {{id}}</p>
         	    <p>Salary: {{salary}}</p>
-				<p>Department: <a href=" /departments/{{department}}">{{department}}</a></p>
+				<p>Department: <a href="{{host}}/departments/{{department}}">{{department}}</a></p>
         	    <p>Date of birth: {{birth}}</p>
         	</div>
 		</div>
