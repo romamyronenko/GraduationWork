@@ -5,19 +5,17 @@ URL = 'http://127.0.0.1:5000/rest'
 
 
 class TestRest(unittest.TestCase):
-
-    def test_crud_department(self):
-        r = requests.post(URL+'/departments', json={'department_name': 'Test'})
+    def test_create_department(self):
+        r = requests.post(URL+'/departments', json={'department_name': 'Test_create_department'})
         self.assertEqual(r.status_code, 201)
 
-        r = requests.get(URL + '/departments/Test')
-        self.assertEqual(r.text.strip(), '"Test"')
+        r = requests.get(URL + '/departments/Test_create_department')
+        self.assertEqual(r.text.strip(), '"Test_create_department"')
 
-        requests.put(URL+'/departments/Test', json={'department_name': 'Test_update'})
-        self.assertEqual(requests.get(URL + '/departments/Test_update').text.strip(), '"Test_update"')
+        requests.delete(URL+'/departments/Test_create_department')
 
-        r = requests.delete(URL+'/departments/Test_update')
-        self.assertEqual(r.status_code, 204)
+    def test_create_employee(self):
+        r = requests.post(URL+'/employees', json={})
 
 
 if __name__ == '__main__':

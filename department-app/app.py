@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, g, request
 from flask_restful import Api
 import rest.rest_app as ra
 
+
 app = Flask(__name__)
 api = Api(app)
 HOST = 'http://localhost:5000'
@@ -15,7 +16,12 @@ def index():
 @app.route('/employees')
 def employees_page():
     """Show list of employee."""
-    employees_list = ra.Employees().get()
+    date = request.args.get('date')
+    date2 = request.args.get('date2')
+    if date and date is not None:
+        employees_list = ra.Employees().get_by_date(date.replace('-', ''), date2.replace('-', ''))
+    else:
+        employees_list = ra.Employees().get()
     return render_template('employees.html',
                            departments=[
                                {'id': i['id'],
@@ -133,4 +139,4 @@ api.add_resource(ra.Employees, '/rest/employees')
 api.add_resource(ra.Employee, '/rest/employees/<int:employee_id>')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1:5000')
+    app.run(debug=True)

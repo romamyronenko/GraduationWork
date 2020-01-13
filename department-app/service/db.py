@@ -76,6 +76,13 @@ class DataBase:
         self.cursor.execute('SELECT * FROM employee WHERE Department = %s', (department,))
         return self.cursor.fetchall()
 
+    def get_employees_by_date(self, date, date2):
+        if date2:
+            self.cursor.execute('SELECT * FROM employee WHERE Birth >= %s && Birth <= %s', (date, date2))
+        else:
+            self.cursor.execute('SELECT * FROM employee WHERE Birth = %s', (date,))
+        return self.cursor.fetchall()
+
     def close(self):
         """Save changes and close database."""
         self.db.commit()

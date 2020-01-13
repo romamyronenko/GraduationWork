@@ -1,5 +1,10 @@
 from flask_restful import Resource, reqparse
 import service
+import logging
+
+
+logging.basicConfig(filename='rest.log', format='[%(levelname)s] %(asctime)s: %(message)s', level=logging.DEBUG)
+logging.info('Start')
 
 
 def wrapper(f):
@@ -43,12 +48,14 @@ class Department(Resource):
     @wrapper
     def get(self, department_name):
         """Return department data."""
+        logging.info(f'GET /departments/{department_name}')
         return db.get_department(department_name)
 
     @wrapper
     def delete(self, department_name):
         """Remove department from list."""
         db.remove_department(department_name)
+        logging.info(f'DELETE /departments/{department_name} 204')
         return '', 204
 
     @wrapper
@@ -56,14 +63,17 @@ class Department(Resource):
         """Edit department data."""
         args = parser.parse_args()
         db.edit_department(department_name, args['department_name'])
+        logging.info(f'PUT /departments/{department_name} 200')
         return '', 200
 
     @wrapper
     def get_count_of_employees(self, department_name):
+        """Return count of employees in the department."""
         return db.get_count_of_employees(department_name)
 
     @wrapper
     def get_employees(self, department_name):
+        """Return list of employees in the department."""
         return [{
             'id': i[0],
             'Name': i[1],
@@ -85,6 +95,7 @@ class Departments(Resource):
     def get(self):
         """Return list of departments."""
         departments = db.get_departments()
+        logging.info(f'GET /departments')
         return [{'Name': name} for (name,) in departments]
 
     @wrapper
@@ -92,6 +103,7 @@ class Departments(Resource):
         """Add new department."""
         args = parser.parse_args()
         db.create_department(args['department_name'])
+        logging.info(f'POST /departments 201')
         return args['department_name'], 201
 
 
@@ -100,6 +112,7 @@ class Employee(Resource):
     def get(self, employee_id):
         """Return employee data."""
         employee = db.get_employee(employee_id)
+        logging.info(f'GET /employees/{employee_id}')
         return [{'id': employee[0],
                  'Name': employee[1],
                  'Department': employee[2],
@@ -110,6 +123,7 @@ class Employee(Resource):
     def delete(self, employee_id):
         """Remove employee from list."""
         db.remove_employee(employee_id)
+        logging.info(f'DELETE /employees/{employee_id} 200')
         return '', 204
 
     @wrapper
@@ -121,6 +135,7 @@ class Employee(Resource):
                          args['employee_birth'],
                          args['employee_salary'],
                          args['employee_department'])
+        logging.info(f'PUT /employees/{employee_id} 200')
         return '', 200
 
 
@@ -132,6 +147,7 @@ class Employees(Resource):
     def get(self):
         """Return list of employee."""
         employees = db.get_employees()
+        logging.info('GET /employees')
         return [{'id': employee_id,
                  'Name': name,
                  'Department': department,
@@ -146,4 +162,17 @@ class Employees(Resource):
                            department=args['employee_department'],
                            salary=args['employee_salary'],
                            birth=args['employee_birth'])
+        logging.info('POST /employees 201')
         return args['employee_name'], 201
+
+    @wrapper
+    def get_by_date(self, date, date2):
+        """Return list of employee that was born in the date(or between dates)."""
+        employees = db.get_employees_by_date(date, date2)
+        print(employees)
+        logging.info('GET /employees')
+        return [{'id': employee_id,
+                 'Name': name,
+                 'Department': department,
+                 'Birth': str(birth),
+                 'Salary': salary} for (employee_id, name, department, birth, salary) in employees]
