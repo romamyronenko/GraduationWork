@@ -6,6 +6,7 @@ Clone project:
 goto path
 
 `cd GratuationWork/`
+
 `cd department-app/`
 
 create envrionment 
