@@ -11,7 +11,12 @@ goto path
 create envrionment 
 
 `virtualenv py-env`
+
+activate
+
 `source py-env/bin/activate`
+
+install modules
 
 `pip install flask`
 
