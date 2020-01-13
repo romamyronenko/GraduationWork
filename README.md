@@ -14,8 +14,11 @@ create envrionment
 `source py-env/bin/activate`
 
 `pip install flask`
+
 `pip install flask_restful`
+
 `pip install mysql.connector`
+
 `pip install gunicorn`
 
 Run service
