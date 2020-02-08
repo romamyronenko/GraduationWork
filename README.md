@@ -28,6 +28,6 @@ install modules
 `pip install gunicorn`
 
 Run service
-`gunicorn --bind 0.0.0.0:5000 wsgi:app`
+`gunicorn --bind 127.0.0.1:5000 wsgi:app`
 
-Project work at host 0.0.0.0:5000
+Project work at host 127.0.0.1:5000

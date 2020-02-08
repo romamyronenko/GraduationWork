@@ -5,7 +5,7 @@ import rest.rest_app as ra
 
 app = Flask(__name__)
 api = Api(app)
-HOST = 'http://0.0.0.0:5000'
+HOST = 'http://127.0.0.1:5000'
 
 
 @app.route('/')
