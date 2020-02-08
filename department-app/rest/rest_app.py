@@ -3,7 +3,7 @@ import service
 import logging
 
 
-# logging.basicConfig(filename='rest.log', format='[%(levelname)s] %(asctime)s: %(message)s', level=logging.DEBUG)
+logging.basicConfig(filename='rest.log', format='[%(levelname)s] %(asctime)s: %(message)s', level=logging.DEBUG)
 logging.info('Start')
 
 
