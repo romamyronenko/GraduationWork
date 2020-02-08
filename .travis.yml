@@ -9,6 +9,6 @@ install:
     - pip install gunicorn
 # command to run tests
 script:
-    cd department-app/
-    gunicorn --bind 127.0.0.1:5000 wsgi:app
-    python -m unittest tests/test_rest.py -v
+    - cd department-app/
+    - gunicorn --bind 127.0.0.1:5000 wsgi:app
+    - python -m unittest tests/test_rest.py -v
