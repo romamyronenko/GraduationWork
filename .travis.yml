@@ -7,7 +7,5 @@ install:
     - pip install flask_restfull
     - pip install mysql.connector
     - pip install gunicorn
-virtualenv:
-  system_site_packages: true
 # command to run tests
 script: python -m unittest
