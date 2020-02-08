@@ -4,7 +4,7 @@ python:
 # command to install dependencies
 install:
     - pip install flask
-    - pip install flask_restfull
+    - pip install flask_restful
     - pip install mysql.connector
     - pip install gunicorn
 # command to run tests
